@@ -7,13 +7,14 @@ export const ThemeContext = createContext({
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    
+    // La lógica de inicialización es perfecta.
     if (typeof window === "undefined") return "light";
     
     try {
       if (localStorage.getItem("theme")) {
         return localStorage.getItem("theme");
       }
+      
       return window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light";
@@ -38,28 +39,23 @@ export function ThemeProvider({ children }) {
   
   useEffect(() => {
     if (typeof document === "undefined") return;
-    const body = document.body;
+    
+    const htmlElement = document.documentElement; // Es el <html>
 
-    if (theme === "light") {
-      body.style.backgroundColor = "#ffffff";
-      body.style.color = "#000000";
+    if (theme === "dark") {
+      htmlElement.classList.add("dark");
     } else {
-      body.style.backgroundColor = "#111827"; 
-      body.style.color = "#ffffff";
+      htmlElement.classList.remove("dark");
     }
+    
+
+    
   }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <div
-        className={
-          theme === "light"
-            ? "bg-white text-black min-h-screen"
-            : "bg-gray-900 text-white min-h-screen"
-        }
-      >
-        {children}
-      </div>
+      
+      {children} 
     </ThemeContext.Provider>
   );
 }

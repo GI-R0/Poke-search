@@ -1,23 +1,28 @@
 import React, { memo } from "react";
-import { useTheme } from "../hooks/useTheme";
-import PikachuLogo from "../assets/pokemon.png";
+// ⚠️ Removed unused import: useTheme is not needed here
+import PikachuLogo from "../assets/pokemon.png"; 
 
-const Footer = memo(function Footer() {
-  const { theme } = useTheme();
-  
+// Using a standard function declaration with memo for cleaner syntax
+const Footer = memo(function AppFooter() {
   return (
-    <footer className={`${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-800'} text-white p-4 mt-8 text-center`}>
-      <div className="flex flex-col items-center gap-3">
+    <footer 
+      // ✅ Using Tailwind dark mode classes for professional theming
+      className="bg-gray-800 dark:bg-gray-900 text-white p-4 mt-8"
+    >
+      <div className="flex flex-col items-center justify-center gap-3 max-w-5xl mx-auto">
         <img
           src={PikachuLogo}
           alt="Logo PokeSearch"
+          // ❌ The error-causing 's' has been removed
           className="w-16 h-16 aspect-square object-contain"
           width="64"
           height="64"
           loading="lazy"
           decoding="async"
         />
-        <p>PokeSearch © {new Date().getFullYear()} - Proyecto educativo con PokeAPI</p>
+        <p className="text-sm">
+            PokeSearch © {new Date().getFullYear()} - Proyecto educativo con PokeAPI
+        </p>
       </div>
     </footer>
   );
