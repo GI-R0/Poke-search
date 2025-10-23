@@ -1,10 +1,5 @@
+// src/utils/formatText.js
 export function capitalize(text) {
-  
-  if (!text) return '';
-  
-  
-  const str = String(text).toLowerCase();
-  
-  
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }

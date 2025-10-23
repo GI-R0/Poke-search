@@ -2,19 +2,28 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-export default function Layout({ children }) {
+const Layout = React.memo(({ children }) => {
   return (
-    // 1. Contenedor principal
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+    <div
+      className="min-h-screen flex flex-col bg-blue-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+      role="presentation"
+    >
+      {/* Navbar */}
       <Navbar />
-      
-      {/* 2. Área principal de contenido que crecerá (flex-1) */}
-      <main className="flex-1 container mx-auto px-4 py-8 antialiased">
-        {children} {/* ⬅️ Aquí se renderiza el contenido de la página */}
-      </main> 
-      
-      {/* 3. Footer al final */}
+
+      {/* Contenido principal */}
+      <main
+        className="flex-1 container mx-auto px-4 py-8 antialiased"
+        role="main"
+        aria-label="Contenido principal"
+      >
+        {children}
+      </main>
+
+      {/* Footer */}
       <Footer />
-    </div> 
+    </div>
   );
-}
+});
+
+export default Layout;
