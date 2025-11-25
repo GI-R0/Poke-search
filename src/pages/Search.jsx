@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { usePokemon } from "../hooks/usePokemon";
 import Loader from "../components/Loader";
 import PokemonCard from "../components/PokemonCard";
 
 export default function Search() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const [pokemonName, setPokemonName] = useState("");
   const { data: results, loading, error } = usePokemon(pokemonName);
+
+  useEffect(() => {
+    document.title = "Buscar Pokémon | PokeSearch";
+  }, []);
 
   const onSubmit = (formData) => {
     setPokemonName(formData.name);
@@ -23,9 +32,14 @@ export default function Search() {
         className="flex flex-col sm:flex-row gap-4 mb-8"
       >
         <input
-          {...register("name", { required: "Por favor, ingresa un nombre o ID" })}
+          {...register("name", {
+            required: "Por favor, ingresa un nombre o ID",
+          })}
           placeholder="Nombre o ID del Pokémon"
           className="border p-3 rounded-lg flex-1"
+          aria-label="Buscar Pokémon por nombre o ID"
+          aria-invalid={errors.name ? "true" : "false"}
+          aria-describedby={errors.name ? "name-error" : undefined}
         />
         <button
           type="submit"
@@ -36,7 +50,11 @@ export default function Search() {
       </form>
 
       {errors.name && (
-        <p className="text-red-500 text-center mb-4">
+        <p
+          id="name-error"
+          className="text-red-500 text-center mb-4"
+          role="alert"
+        >
           {errors.name.message}
         </p>
       )}

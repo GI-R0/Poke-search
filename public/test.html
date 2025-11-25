@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokeSearch Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f0f0f0;
+      }
+      .test-box {
+        background: white;
+        padding: 20px;
+        margin: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .success {
+        border-left: 4px solid #4caf50;
+      }
+      .error {
+        border-left: 4px solid #f44336;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 Diagnóstico de PokeSearch</h1>
+
+    <div class="test-box success">
+      <h2>✅ HTML Cargado</h2>
+      <p>Si ves este mensaje, el servidor está funcionando correctamente.</p>
+    </div>
+
+    <div class="test-box" id="jsTest">
+      <h2>⏳ JavaScript</h2>
+      <p>Verificando...</p>
+    </div>
+
+    <div class="test-box">
+      <h2>📍 URLs</h2>
+      <p>Página actual: <code id="currentUrl"></code></p>
+      <p>Puerto: <code id="port"></code></p>
+    </div>
+
+    <div class="test-box">
+      <h2>🔗 Ir a la aplicación</h2>
+      <p>
+        <a
+          href="/"
+          style="color: #2196f3; text-decoration: none; font-weight: bold"
+          >➜ Abrir PokeSearch</a
+        >
+      </p>
+    </div>
+
+    <script>
+      // Test JavaScript
+      document.getElementById("jsTest").className = "test-box success";
+      document.getElementById("jsTest").innerHTML =
+        "<h2>✅ JavaScript</h2><p>JavaScript está funcionando correctamente.</p>";
+
+      // Mostrar URL
+      document.getElementById("currentUrl").textContent = window.location.href;
+      document.getElementById("port").textContent =
+        window.location.port || "80";
+
+      console.log("🎯 Diagnóstico ejecutado");
+      console.log("URL:", window.location.href);
+      console.log("Puerto:", window.location.port);
+    </script>
+  </body>
+</html>

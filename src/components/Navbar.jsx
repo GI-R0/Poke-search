@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "../hooks/useTheme";
 import pikachu from "../assets/pikachu.png";
 
 const Navbar = React.memo(() => {
@@ -30,7 +30,9 @@ const Navbar = React.memo(() => {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              aria-label={`Cambiar al tema ${theme === "dark" ? "claro" : "oscuro"}`}
+              aria-label={`Cambiar al tema ${
+                theme === "dark" ? "claro" : "oscuro"
+              }`}
               className="p-3 rounded-full bg-white text-blue-600 dark:bg-gray-700 dark:text-yellow-400 hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-blue-300 dark:border-yellow-500"
             >
               <span className="text-xl">{theme === "dark" ? "☀️" : "🌙"}</span>
