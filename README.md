@@ -57,8 +57,6 @@ Gestión del tema claro/oscuro.
 
 Consume [PokeAPI](https://pokeapi.co/):
 
-- `GET /pokemon?limit=20&offset=0` - Lista paginada
-- `GET /pokemon/{name}` - Detalles del Pokémon
 
 Proyecto educativo de código abierto.
 
