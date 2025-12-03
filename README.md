@@ -22,7 +22,7 @@ Una aplicación web para buscar y explorar Pokémon, construida con React y la P
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/GI-R0/kimetsu-search.git
+git clone https://github.com/GI-R0/poke-search.git
 cd kimetsu-search
 
 # Instalar dependencias
