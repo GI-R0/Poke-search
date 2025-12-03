@@ -26,7 +26,7 @@ export function usePokemon(name) {
         if (!res.ok) throw new Error("Pokemon not found");
 
         const pokemon = await res.json();
-        setData([pokemon]); // Keeping array format to match existing usage
+        setData([pokemon]);
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err.message);
