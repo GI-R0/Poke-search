@@ -23,8 +23,15 @@ export function ThemeProvider({ children }) {
   };
 
   useEffect(() => {
+    const darkMode = theme === "dark";
+
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
     document.documentElement.setAttribute("data-theme", theme);
-    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
   const value = React.useMemo(() => ({ theme, toggleTheme }), [theme]);

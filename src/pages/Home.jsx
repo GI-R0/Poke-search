@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./Home.css";
 import PokemonCard from "../components/PokemonCard";
 import Loader from "../components/Loader";
 import { usePokemonList } from "../hooks/usePokemonList";
@@ -55,7 +56,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-16">
           {nextUrl && (
             <button onClick={loadMore} disabled={loadingMore} className="btn">
               {loadingMore ? "Cargando..." : "Cargar más"}

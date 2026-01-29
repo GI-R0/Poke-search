@@ -36,6 +36,7 @@ npm run build
 npm run preview
 ```
 
+> Nota: para desarrollo y preview local abre `http://localhost:5173/` (la ruta `/poke-search/` se usa únicamente cuando se despliega en GitHub Pages).
 ## Estructura del proyecto
 
 El proyecto usa hooks personalizados para manejar la lógica de datos:

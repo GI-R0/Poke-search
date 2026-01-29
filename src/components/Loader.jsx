@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loader = React.memo(() => {
+const Loader = () => {
   return (
     <div
       className="flex flex-col items-center justify-center p-8 space-y-4 my-8 select-none"
@@ -17,6 +17,6 @@ const Loader = React.memo(() => {
       </p>
     </div>
   );
-});
+};
 
 export default Loader;

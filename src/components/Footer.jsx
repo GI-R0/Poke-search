@@ -1,6 +1,6 @@
 import React from "react";
 
-const Footer = React.memo(() => {
+const Footer = () => {
   return (
     <footer
       className="footer py-8 mt-12 text-center text-sm text-gray-500 dark:text-gray-400"
@@ -22,6 +22,6 @@ const Footer = React.memo(() => {
       </div>
     </footer>
   );
-});
+};
 
 export default Footer;

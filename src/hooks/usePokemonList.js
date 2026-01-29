@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 export function usePokemonList(
   initialUrl = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
@@ -19,7 +19,7 @@ export function usePokemonList(
     );
   };
 
-  const fetchPage = useCallback(async (url, isLoadMore = false) => {
+  const fetchPage = async (url, isLoadMore = false) => {
     try {
       isLoadMore ? setLoadingMore(true) : setLoading(true);
       setError(null);
@@ -40,11 +40,13 @@ export function usePokemonList(
     } finally {
       isLoadMore ? setLoadingMore(false) : setLoading(false);
     }
-  }, []);
+  };
 
   useEffect(() => {
+    // initial load
     fetchPage(initialUrl);
-  }, [initialUrl, fetchPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialUrl]);
 
   const loadMore = () => {
     if (nextUrl && !loadingMore) fetchPage(nextUrl, true);

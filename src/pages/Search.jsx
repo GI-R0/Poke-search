@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import "./Search.css";
 import { useForm } from "react-hook-form";
 import { usePokemon } from "../hooks/usePokemon";
 import Loader from "../components/Loader";
@@ -68,7 +69,7 @@ export default function Search() {
   };
 
   return (
-    <main className="w-full max-w-5xl mx-auto p-4 md:p-8">
+    <section className="w-full max-w-5xl mx-auto p-4 md:p-8">
       <h1 className="text-3xl font-bold text-center mb-6">Buscar Pokémon</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="search-form">
@@ -176,6 +177,6 @@ export default function Search() {
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
-    </main>
+    </section>
   );
 }

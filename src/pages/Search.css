@@ -1,0 +1,11 @@
+.search-input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #fff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.search-form {
+  /* espacio y layout para el formulario */
+}

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { capitalize } from "../utils/formatText";
+import "./PokemonCard.css";
 
 const PokemonCard = memo(({ pokemon }) => {
   if (!pokemon) return null;
