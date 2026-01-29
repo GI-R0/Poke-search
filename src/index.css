@@ -2,10 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
 :root {
+  /* legacy variables kept temporarily while migrating to Tailwind */
   --font-base: "Inter", system-ui, sans-serif;
   --header-height: 72px;
 
@@ -19,47 +17,26 @@
   --radius-md: 4px;
 }
 
+/* Global styles: prefer Tailwind utility classes in components. */
 html {
   color-scheme: dark;
-  font-family: var(--font-base);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+  @apply min-h-screen m-0 bg-bg-primary text-text-primary font-sans;
 }
-/* Hero styles moved to src/pages/Home.css */
 
-/* Header styles moved to src/components/Navbar.css */
-
-
-/* Nav link styles moved to src/components/Navbar.css */
-
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  padding: 0 4%;
-  padding-bottom: 3rem; /* evitar solapamientos con botones */
+/* utility class used to prevent scrolling when mobile nav is open */
+.no-scroll {
+  overflow: hidden;
 }
-/* Pokemon card styles moved to src/components/PokemonCard.css */
 
-.container {
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-/* Search input styles moved to src/pages/Search.css */
+/* Generic button utility to help migrate styles to Tailwind gradually */
 .btn {
-  background: var(--accent-color);
-  color: white;
-  padding: 0.5rem 1.5rem;
-  border-radius: 4px;
-  font-weight: bold;
+  @apply inline-flex items-center px-4 py-2 rounded text-sm font-bold bg-accent text-white;
 }
 
+/* Keep animations used in various components */
 @keyframes float {
   0%,
   100% {
@@ -81,16 +58,23 @@ body {
   }
 }
 
-.about-section {
-  max-width: 800px;
-  margin: 4rem auto;
-  padding: 2rem;
-  text-align: center;
+/* small helper for text shadow used in hero */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+/* Base spacing for headings to fix tight h2/previous-content spacing */
 h2 {
-  margin-top: 2rem;
-  margin-bottom: 1.25rem;
+  @apply mt-8 mb-5;
+}
+
+/* Temporary helper for pokemon grid while migrating components to use Tailwind classes */
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 0 4%;
+  padding-bottom: 3rem; /* evitar solapamientos con botones */
 }
 
 @media (max-width: 640px) {
@@ -104,29 +88,22 @@ h2 {
   }
 }
 
-.about-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
+/* Small about section helpers kept for migration speed */
+.about-section {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.about-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.about-title {
+  @apply text-4xl font-bold mb-8 text-text-primary;
 }
 
 .about-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  text-align: left;
+  @apply text-base leading-relaxed text-text-secondary text-left;
 }
 
 .about-footer {
-  margin-top: 2rem;
-  font-size: 1rem;
-  color: var(--accent-color);
-  font-weight: 500;
+  @apply mt-8 text-accent font-medium;
 }

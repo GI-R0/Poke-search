@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
         <Navbar />
       </header>
       
-      <main className="flex-grow container mx-auto px-4 pt-20">
+      <main className="flex-grow container mx-auto px-4" style={{ paddingTop: "calc(var(--header-height) + 0.5rem)" }}>
         {children}
       </main>
 
