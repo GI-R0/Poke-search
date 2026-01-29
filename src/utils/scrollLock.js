@@ -12,7 +12,6 @@ export function unlockScroll() {
   if (lockCount === 0) document.body.classList.remove(CLASS_NAME);
 }
 
-// for testing/debugging
 export function _getLockCount() {
   return lockCount;
 }

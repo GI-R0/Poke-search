@@ -1,109 +1,95 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
-:root {
-  /* legacy variables kept temporarily while migrating to Tailwind */
-  --font-base: "Inter", system-ui, sans-serif;
-  --header-height: 72px;
-
-  --bg-primary: #141414;
-  --bg-secondary: #1f1f1f;
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --accent-color: #e50914;
-
-  --transition-smooth: 0.3s ease;
-  --radius-md: 4px;
-}
-
-/* Global styles: prefer Tailwind utility classes in components. */
-html {
-  color-scheme: dark;
-}
-
-body {
-  @apply min-h-screen m-0 bg-bg-primary text-text-primary font-sans;
-}
-
-/* utility class used to prevent scrolling when mobile nav is open */
-.no-scroll {
-  overflow: hidden;
-}
-
-/* Generic button utility to help migrate styles to Tailwind gradually */
-.btn {
-  @apply inline-flex items-center px-4 py-2 rounded text-sm font-bold bg-accent text-white;
-}
-
-/* Keep animations used in various components */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
+@layer base {
+  :root {
+    --accent-color: #e50914;
+    --header-height: 72px;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
   }
-  50% {
-    transform: translateY(-8px);
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background-color: #F9FAFB;
+    color: #111827;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    transition: color 0.3s ease, background-color 0.3s ease;
+  }
+
+  .dark body {
+    background-color: #0f1724;
+    color: #f3f4f6;
+  }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+@layer components {
+  .no-scroll {
+    overflow: hidden;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
   }
-}
 
-/* small helper for text shadow used in hero */
-.text-shadow {
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    background-color: #dc2626;
+    color: #ffffff;
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.2), 0 4px 6px -4px rgba(220, 38, 38, 0.2);
+  }
 
-/* Base spacing for headings to fix tight h2/previous-content spacing */
-h2 {
-  @apply mt-8 mb-5;
-}
+  .btn-primary:hover {
+    background-color: #b91c1c;
+  }
 
-/* Temporary helper for pokemon grid while migrating components to use Tailwind classes */
-.pokemon-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  padding: 0 4%;
-  padding-bottom: 3rem; /* evitar solapamientos con botones */
-}
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
 
-@media (max-width: 640px) {
   .pokemon-grid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 0.75rem;
+    display: grid;
+    gap: 1.5rem;
+    padding: 2.5rem 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 
-  .nav-links-container {
-    gap: 0.9rem;
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
   }
 }
 
-/* Small about section helpers kept for migration speed */
-.about-section {
-  max-width: 800px;
-  margin: 4rem auto;
-  padding: 2rem;
-  text-align: center;
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
 }
 
-.about-title {
-  @apply text-4xl font-bold mb-8 text-text-primary;
-}
-
-.about-text {
-  @apply text-base leading-relaxed text-text-secondary text-left;
-}
-
-.about-footer {
-  @apply mt-8 text-accent font-medium;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }

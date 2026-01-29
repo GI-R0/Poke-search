@@ -1,55 +1,46 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-export function usePokemonList(
-  initialUrl = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0"
-) {
+export function usePokemonList(initialUrl = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0") {
   const [pokemonList, setPokemonList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
 
-  const fetchPokemonDetails = async (results) => {
-    return Promise.all(
-      results.map(async (p) => {
-        const res = await fetch(p.url);
-        if (!res.ok) throw new Error(`Error loading ${p.name}`);
-        return res.json();
-      })
-    );
-  };
+  const getDetailedData = useCallback(async (results) => {
+    const promises = results.map((p) => fetch(p.url).then((res) => res.json()));
+    return Promise.all(promises);
+  }, []);
 
-  const fetchPage = async (url, isLoadMore = false) => {
+  const fetchData = useCallback(async (url, isMore = false) => {
     try {
-      isLoadMore ? setLoadingMore(true) : setLoading(true);
+      isMore ? setLoadingMore(true) : setLoading(true);
       setError(null);
 
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch pokemon list");
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Error de conexión con la PokeAPI");
+      
+      const data = await res.json();
+      const details = await getDetailedData(data.results || []);
 
-      const data = await response.json();
       setNextUrl(data.next);
-
-      const detailedData = await fetchPokemonDetails(data.results || []);
-
-      setPokemonList((prev) =>
-        isLoadMore ? [...prev, ...detailedData] : detailedData
-      );
+      setPokemonList(prev => isMore ? [...prev, ...details] : details);
     } catch (err) {
       setError(err.message);
     } finally {
-      isLoadMore ? setLoadingMore(false) : setLoading(false);
+      setLoadingMore(false);
+      setLoading(false);
     }
-  };
+  }, [getDetailedData]);
 
   useEffect(() => {
-    // initial load
-    fetchPage(initialUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialUrl]);
+    fetchData(initialUrl);
+  }, [initialUrl, fetchData]);
 
   const loadMore = () => {
-    if (nextUrl && !loadingMore) fetchPage(nextUrl, true);
+    if (nextUrl && !loadingMore && !loading) {
+      fetchData(nextUrl, true);
+    }
   };
 
   return { pokemonList, loading, loadingMore, error, nextUrl, loadMore };
