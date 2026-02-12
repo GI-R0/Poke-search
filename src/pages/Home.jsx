@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PokemonCard from "../components/PokemonCard";
 import Loader from "../components/Loader";
 import { usePokemonList } from "../hooks/usePokemonList";
+import { useMetaTags } from "../hooks/useMetaTags";
 
 const FEATURED_POKEMON = [
   {
@@ -60,9 +61,10 @@ export default function Home() {
     });
   }, []);
 
-  useEffect(() => {
-    document.title = "Pokédex | PokeSearch";
-  }, []);
+  useMetaTags(
+    "Pokédex | PokeSearch",
+    "Explora la Pokédex completa con PokeSearch. Descubre información detallada sobre todos los Pokémon de la serie."
+  );
 
   if (loading) return <Loader />;
   
@@ -107,30 +109,30 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="container mx-auto pb-20">
-        <div className="flex flex-col items-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white">
+      <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="flex flex-col items-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white text-center">
             Catch 'em all
           </h2>
-          <div className="h-1 w-20 bg-red-600 mt-2 rounded-full"></div>
+          <div className="h-1 w-20 bg-red-600 mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {pokemonList.map((p) => (
             <PokemonCard key={p.id} pokemon={p} />
           ))}
         </div>
 
         {nextUrl && (
-          <div className="flex flex-col items-center mt-20 gap-4">
+          <div className="flex flex-col items-center mt-16 md:mt-20 gap-6">
             <button 
               onClick={loadMore} 
               disabled={loadingMore}
-              className="px-12 py-4 bg-zinc-900 dark:bg-white dark:text-zinc-900 text-white font-black rounded-xl hover:shadow-2xl disabled:opacity-50 transition-all z-10"
+              className="px-8 md:px-12 py-3 md:py-4 bg-zinc-900 dark:bg-white dark:text-zinc-900 text-white font-black rounded-xl hover:shadow-2xl disabled:opacity-50 transition-all relative z-0"
             >
               {loadingMore ? "Buscando más..." : "CARGAR MÁS POKÉMON"}
             </button>
-            <p className="text-xs text-gray-500 uppercase tracking-tighter">
+            <p className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-tighter">
               Mostrando {pokemonList.length} especímenes
             </p>
           </div>

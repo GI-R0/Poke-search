@@ -9,15 +9,15 @@ const PokemonCard = memo(({ pokemon }) => {
 
   return (
     <article
-      className="group relative flex flex-col bg-white dark:bg-zinc-800 rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-zinc-700"
+      className="group relative flex flex-col bg-white dark:bg-zinc-800 rounded-2xl p-4 shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-zinc-700 pointer-events-auto"
     >
       <span className="absolute top-4 right-4 text-xs font-bold text-gray-400 dark:text-zinc-500">
         #{id.toString().padStart(3, '0')}
       </span>
 
-      <div className="flex justify-center items-center h-40 mb-4 transform group-hover:-translate-y-2 transition-transform duration-300">
+      <div className="flex justify-center items-center h-40 mb-4">
         <img 
-          className="h-full object-contain drop-shadow-md" 
+          className="h-full object-contain drop-shadow-md group-hover:-translate-y-2 transition-transform duration-300" 
           src={image} 
           alt={name} 
           loading="lazy" 
@@ -29,7 +29,7 @@ const PokemonCard = memo(({ pokemon }) => {
           {capitalize(name)}
         </h3>
         
-        <div className="flex justify-center gap-2 mt-3">
+        <div className="flex justify-center gap-2 mt-3 flex-wrap">
           {types?.map((t) => (
             <span 
               key={t.type.name} 
@@ -44,6 +44,8 @@ const PokemonCard = memo(({ pokemon }) => {
     </article>
   );
 });
+
+PokemonCard.displayName = "PokemonCard";
 
 const TYPE_COLORS = {
   fire: 'bg-orange-500',

@@ -73,9 +73,30 @@
 
   .pokemon-grid {
     display: grid;
-    gap: 1.5rem;
-    padding: 2.5rem 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    padding: 0;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    .pokemon-grid {
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .pokemon-grid {
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pokemon-grid {
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
   }
 
   .animate-float {

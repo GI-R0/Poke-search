@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./Search.css";
 import { useForm } from "react-hook-form";
 import { usePokemon } from "../hooks/usePokemon";
+import { useDebounce } from "../hooks/useDebounce";
+import { useMetaTags } from "../hooks/useMetaTags";
 import Loader from "../components/Loader";
 import PokemonCard from "../components/PokemonCard";
 
@@ -24,10 +26,16 @@ export default function Search() {
 
   const [pokemonName, setPokemonName] = useState("");
   const [searchHistory, setSearchHistory] = useState([]);
-  const { data: results, loading, error } = usePokemon(pokemonName);
+  const debouncedPokemonName = useDebounce(pokemonName, 500);
+  const isDebouncing = pokemonName !== debouncedPokemonName;
+  const { data: results, loading, error } = usePokemon(debouncedPokemonName);
+
+  useMetaTags(
+    "Buscar Pokémon | PokeSearch",
+    "Busca tus Pokémon favoritos por nombre o ID en PokeSearch. Encuentra información rápida y detallada."
+  );
 
   useEffect(() => {
-    document.title = "Buscar Pokémon | PokeSearch";
     const savedHistory = localStorage.getItem("pokemonSearchHistory");
     if (savedHistory) {
       setSearchHistory(JSON.parse(savedHistory));
@@ -69,8 +77,9 @@ export default function Search() {
   };
 
   return (
-    <section className="w-full max-w-5xl mx-auto p-4 md:p-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Buscar Pokémon</h1>
+    <section className="w-full min-h-screen flex flex-col">
+      <div className="w-full max-w-5xl mx-auto p-4 md:p-8 flex-grow">
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 mt-4 text-gray-900 dark:text-white">Buscar Pokémon</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="search-form">
         <div className="flex flex-col gap-4 mb-4">
@@ -96,11 +105,18 @@ export default function Search() {
                 },
               })}
               placeholder="Nombre o ID del Pokémon (ej: pikachu, 25)"
-              className="search-input flex-1"
+              className="flex-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all"
               aria-label="Buscar Pokémon"
               aria-invalid={errors.name ? "true" : "false"}
               aria-describedby={errors.name ? "name-error" : undefined}
             />
+
+            {isDebouncing && (
+              <div className="flex items-center gap-2 text-gray-500 text-sm">
+                <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                <span>Esperando...</span>
+              </div>
+            )}
 
             <div className="flex gap-2">
               <button
@@ -176,6 +192,7 @@ export default function Search() {
         {results?.map((pokemon) => (
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
+      </div>
       </div>
     </section>
   );
