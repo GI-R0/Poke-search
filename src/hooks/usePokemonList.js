@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 export function usePokemonList(initialUrl = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0") {
   const [pokemonList, setPokemonList] = useState([]);
@@ -7,12 +7,12 @@ export function usePokemonList(initialUrl = "https://pokeapi.co/api/v2/pokemon?l
   const [error, setError] = useState(null);
   const [nextUrl, setNextUrl] = useState(null);
 
-  const getDetailedData = useCallback(async (results) => {
+  const getDetailedData = async (results) => {
     const promises = results.map((p) => fetch(p.url).then((res) => res.json()));
     return Promise.all(promises);
-  }, []);
+  };
 
-  const fetchData = useCallback(async (url, isMore = false) => {
+  const fetchData = async (url, isMore = false) => {
     try {
       isMore ? setLoadingMore(true) : setLoading(true);
       setError(null);
@@ -31,11 +31,11 @@ export function usePokemonList(initialUrl = "https://pokeapi.co/api/v2/pokemon?l
       setLoadingMore(false);
       setLoading(false);
     }
-  }, [getDetailedData]);
+  };
 
   useEffect(() => {
     fetchData(initialUrl);
-  }, [initialUrl, fetchData]);
+  }, [initialUrl]);
 
   const loadMore = () => {
     if (nextUrl && !loadingMore && !loading) {

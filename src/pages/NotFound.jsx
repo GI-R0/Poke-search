@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useMetaTags } from "../hooks/useMetaTags";
 
 export default function NotFound() {
-  useEffect(() => {
-    document.title = "Página no encontrada | PokeSearch";
-  }, []);
+  useMetaTags(
+    "Página no encontrada | PokeSearch",
+    "La página que buscas no existe. Vuelve al inicio para continuar explorando Pokémon."
+  );
 
   return (
     <div className="flex flex-col items-center justify-center p-8 min-h-[70vh] text-center bg-white dark:bg-gray-800 text-gray-800 dark:text-white">

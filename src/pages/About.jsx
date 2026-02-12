@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useMetaTags } from "../hooks/useMetaTags";
 
 export default function About() {
-  useEffect(() => {
-    document.title = "Acerca de pokesearch";
-  }, []);
+  useMetaTags(
+    "Acerca de PokeSearch",
+    "Descubre más sobre PokeSearch, una aplicación moderna para explorar el mundo de Pokémon usando la PokeAPI."
+  );
 
   return (
     <section className="w-full max-w-3xl mx-auto px-4 py-10">
